@@ -49,9 +49,22 @@ kds installation complete on cm hosts
 
 sudo apt-get install krb5-user -y
 
-under cloudera/administration/enable kerberos
+under cloudera/administration/security/enable kerberos
+enable kerberos
+select MIT
 ## Select aes256-cts as algorithm type
+Give realm name 
+Add private dns of kdc server (CM HOST)
+Add private dns of kdc admin server (CM HOST)
 
+# initialissing the TGT
+kinit -p user1
+
+# Check the TGT cach location
+klist
+
+# Destroying TGT
+kdestroy
 
 ## Create a principal for hdfs superuser
 
@@ -89,7 +102,6 @@ getprinc princname
 -> Change password for particular principal
 
 cpw princname
-
 
 
 ## Creating and using keytab files
