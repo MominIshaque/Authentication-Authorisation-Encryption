@@ -1,0 +1,39 @@
+############################# 
+      Encryption Zones
+#############################
+
+In CM -> Add KMS Service 
+
+Add user and group as KMS and generate ACL
+
+Restart Cluster 
+
+Create Principle for KMS user
+
+-- Create the Key --
+
+su kms 
+
+hadoop key list 
+
+hadoop key create mykey
+
+hadoop key list 
+
+-- create encrypted zone -- 
+
+hdfs dfs -mkdir /zone1
+
+hdfs crypto -createzone -keyName mykey -path /zone1
+
+hdfs dfs -put abcd -put abcd /zone1 
+
+-- put data in encrypted zone -- 
+
+kinit -p kms 
+
+hdfs dfs -put abcd /zone1 
+
+hdfs dfs -ls /zone1
+
+hdfs dfs -cat /zone1/abcd
